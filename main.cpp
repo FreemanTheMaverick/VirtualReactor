@@ -1,12 +1,18 @@
 #include <string>
-#include <iostream>
+#include <ctime>
+#include "Mumbler.h"
 #include "Parser.h"
+#include "Simulator.h"
+
 
 int main(int argc,char * argv[]){
 
+	clock_t start=Mumbler_Welcome();
+
+	std::string method;
 	double temperature,stepsize;
 	int nsteps,print,nmcs,ntss,nnbs,nthreads;
-	Parser_getScalars(argv[1],temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
+	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
 	
 	std::string mc_labels[nmcs];
 	double mc_gibbss[nmcs];
@@ -28,5 +34,10 @@ int main(int argc,char * argv[]){
 	int nb_products[3*nnbs];
 	Parser_getVectors(argv[1],mc_labels,mc_gibbss,mc_concentrations,ts_labels,ts_gibbss,ts_fbarriers,ts_frcs,ts_bbarriers,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,nb_labels,nb_nsreactants,nb_reactants,nb_nsproducts,nb_products,1);
 
+	Mumbler_writeHeaders(nmcs,mc_labels);
+
+	Simulator_Prepare(method,stepsize,nsteps,print,nmcs,ntss,nthreads,mc_labels,mc_concentrations,ts_labels,ts_frcs,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,1);
+
+	Mumbler_Goodbye(start);
 	return 0;
 }

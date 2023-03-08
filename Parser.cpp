@@ -13,8 +13,9 @@ nlohmann::json Parser_readFile(char * filename){
 	return json;
 }
 
-void Parser_getScalars(char * filename,double & temperature,double & stepsize,int & nsteps,int & print,int & nmcs,int & ntss,int & nnbs,int & nthreads,bool output){
+void Parser_getScalars(char * filename,std::string method,double & temperature,double & stepsize,int & nsteps,int & print,int & nmcs,int & ntss,int & nnbs,int & nthreads,bool output){
 	nlohmann::json json=Parser_readFile(filename);
+	method=json.at("method");
 	temperature=json.at("temperature");
 	stepsize=json.at("stepsize");
 	nsteps=json.at("nsteps");
@@ -25,6 +26,7 @@ void Parser_getScalars(char * filename,double & temperature,double & stepsize,in
 	nthreads=json.at("nthreads");
 	if (output){
 		std::cout<<"*** Overall settings ***"<<std::endl;
+		std::cout<<"Method: "<<temperature<<std::endl;
 		std::cout<<"Temperature (K): "<<temperature<<std::endl;
 		std::cout<<"Step size (s): "<<stepsize<<std::endl;
 		std::cout<<"# of steps: "<<nsteps<<std::endl;
@@ -33,6 +35,7 @@ void Parser_getScalars(char * filename,double & temperature,double & stepsize,in
 		std::cout<<"# of transition states: "<<ntss<<std::endl;
 		std::cout<<"# of non-barrier steps: "<<nnbs<<std::endl;
 		std::cout<<"# of parallelized threads: "<<nthreads<<std::endl;
+		std::cout<<std::endl;
 	}
 }
 
@@ -83,27 +86,32 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 			std::cout<<" Concentrations (mol/L): "<<mc_concentrations[imc]<<std::endl;
 		}
 		std::cout<<std::endl;
+		std::cout<<"*** Transition states ***"<<std::endl;
 		for (int its=0;its<ntss;its++){
-			std::cout<<"*** Transition states ***"<<std::endl;
 			std::cout<<"TS "<<its<<":"<<std::endl;
 			std::cout<<" Label: "<<ts_labels[its]<<std::endl;
 			std::cout<<" Gibbs free energy (kcal/mol): "<<ts_gibbss[its]<<std::endl;
+			std::cout<<" Elementary step formula:";
+			for (int ireactant=0;ireactant<ts_nsreactants[its];ireactant++){
+				std::cout<<" "<<mc_labels[ts_reactants[its*3+ireactant]]<<"("<<ts_reactants[its*3+ireactant]<<")";
+				if (ireactant<ts_nsreactants[its]-1)
+					std::cout<<" +";
+			}
+			std::cout<<" -->";
+			for (int iproduct=0;iproduct<ts_nsproducts[its];iproduct++){
+				std::cout<<" "<<mc_labels[ts_products[its*3+iproduct]]<<"("<<ts_products[its*3+iproduct]<<")";
+				if (iproduct<ts_nsproducts[its]-1)
+					std::cout<<" +";
+			}
+			std::cout<<std::endl;
 			std::cout<<" Forward reaction barrier (kcal/mol): "<<ts_fbarriers[its]<<std::endl;
 			std::cout<<" Forward reaction rate constant (SI): "<<ts_frcs[its]<<std::endl;
-			std::cout<<" Reactants:";
-			for (int ireactant=0;ireactant<ts_nsreactants[its];ireactant++)
-				std::cout<<" "<<ts_reactants[its*3+ireactant];
-			std::cout<<std::endl;
 			std::cout<<" Backward reaction barrier (kcal/mol): "<<ts_bbarriers[its]<<std::endl;
 			std::cout<<" Backward reaction rate constant (SI): "<<ts_brcs[its]<<std::endl;
-			std::cout<<" Products:";
-			for (int iproduct=0;iproduct<ts_nsproducts[its];iproduct++)
-				std::cout<<" "<<ts_products[its*3+iproduct];
-			std::cout<<std::endl;
 		}
 		std::cout<<std::endl;
+		std::cout<<"*** Non-barrier steps ***"<<std::endl;
 		for (int inb=0;inb<nnbs;inb++){
-			std::cout<<"*** Non-barrier steps ***"<<std::endl;
 			std::cout<<"NB "<<inb<<":"<<std::endl;
 			std::cout<<" Label: "<<nb_labels[inb]<<std::endl;
 			std::cout<<" Reactants:";
@@ -115,6 +123,7 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 				std::cout<<" "<<nb_products[inb*3+iproduct];
 			std::cout<<std::endl;
 		}
+		std::cout<<std::endl;
 	}
 }
 
@@ -122,9 +131,10 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 #ifndef NDEBUG
 int main(int argc,char * argv[]){
 
+	std::string method;
 	double temperature,stepsize;
 	int nsteps,print,nmcs,ntss,nnbs,nthreads;
-	Parser_getScalars(argv[1],temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
+	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
 	
 	std::string mc_labels[nmcs];
 	double mc_gibbss[nmcs];
