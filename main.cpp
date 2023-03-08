@@ -34,9 +34,11 @@ int main(int argc,char * argv[]){
 	int nb_products[3*nnbs];
 	Parser_getVectors(argv[1],mc_labels,mc_gibbss,mc_concentrations,ts_labels,ts_gibbss,ts_fbarriers,ts_frcs,ts_bbarriers,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,nb_labels,nb_nsreactants,nb_reactants,nb_nsproducts,nb_products,1);
 
-	Mumbler_writeHeaders(nmcs,mc_labels);
-
-	Simulator_Prepare(method,stepsize,nsteps,print,nmcs,ntss,nthreads,mc_labels,mc_concentrations,ts_labels,ts_frcs,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,1);
+	double* ts_concentration_addresses[ntss*6];
+	double mc_rates[nmcs*6];
+	double* ts_rate_addresses[ntss*6];
+	Simulator_Prepare(nmcs,ntss,mc_concentrations,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,mc_rates,ts_concentration_addresses,ts_rate_addresses,1);
+	Simulator_writeHeaders(nmcs,mc_labels);
 
 	Mumbler_Goodbye(start);
 	return 0;

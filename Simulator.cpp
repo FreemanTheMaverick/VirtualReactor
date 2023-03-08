@@ -5,7 +5,7 @@
 #include "Parameters.h"
 
 
-void Simulator_Prepare(std::string method,double stepsize,int nsteps,int print,int nmcs,int ntss,int nthreads,std::string * mc_labels,double * mc_concentrations,std::string * ts_labels,double * ts_frcs,double * ts_brcs,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,bool output){
+void Simulator_Prepare(int nmcs,int ntss,double * mc_concentrations,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,double * mc_rates,double* * ts_concentration_addresses,double* * ts_rate_addresses,bool output){
 
 	if (output) std::cout<<"*** Memory allocation ***"<<std::endl;
 
@@ -13,8 +13,30 @@ void Simulator_Prepare(std::string method,double stepsize,int nsteps,int print,i
 	int mc_nsptss[nmcs];
 	int mc_rtss[nmcs*3];
 	int mc_ptss[nmcs*3];
-	double mc_rates[nmcs*6];
-	if (output) std::cout<<"Addresses where to save concentration evolution rates:"<<std::endl;
+
+	if (output){
+		std::cout<<"Addresses in which to save concentrations:"<<std::endl;
+		for (int imc=0;imc<nmcs;imc++){
+			std::cout<<" MC"<<imc<<":";
+			std::cout<<" "<<&mc_concentrations[imc]<<std::endl;
+		}
+	}
+
+	for (int its=0;its<ntss;its++){
+		if (output) std::cout<<" TS"<<its<<":";
+		for (int jmc=0;jmc<ts_nsreactants[its];jmc++){
+			ts_concentration_addresses[its*6+jmc]=&mc_concentrations[ts_reactants[its*3+jmc]];
+			if (output) std::cout<<" "<<&mc_concentrations[ts_reactants[its*3+jmc]]<<"("<<ts_reactants[its*3+jmc]<<")";
+		}
+		if (output) std::cout<<" -->";
+		for (int jmc=0;jmc<ts_nsproducts[its];jmc++){
+			ts_concentration_addresses[its*6+jmc]=&mc_concentrations[ts_products[its*3+jmc]];
+			if (output) std::cout<<" "<<&mc_concentrations[ts_products[its*3+jmc]]<<"("<<ts_products[its*3+jmc]<<")";
+		}
+		if (output) std::cout<<std::endl;
+	}
+
+	if (output) std::cout<<"Addresses in which to save concentration evolution rates:"<<std::endl;
 	for (int imc=0;imc<nmcs;imc++){
 		if (output) std::cout<<" MC"<<imc<<":";
 		mc_nsrtss[imc]=0;
@@ -44,7 +66,6 @@ void Simulator_Prepare(std::string method,double stepsize,int nsteps,int print,i
 	for (int imc=0;imc<nmcs;imc++){
 		mc_tsindeces[imc]=imc*6;
 	}
-	double* ts_rate_addresses[ntss*6];
 	for (int its=0;its<ntss;its++){
 		if (output) std::cout<<" TS"<<its<<":";
 		int jmc=0;
@@ -58,7 +79,7 @@ void Simulator_Prepare(std::string method,double stepsize,int nsteps,int print,i
 				}
 			}
 		}
-		if (jmc==ts_nsreactants[its]) std::cout<<" -->";
+		if (jmc==ts_nsreactants[its] and output) std::cout<<" -->";
 		for (int kmc=0;kmc<nmcs;kmc++){
 			for (int lts=0;lts<mc_nsptss[kmc];lts++){
 				if (its==mc_ptss[kmc*3+lts]){
@@ -71,4 +92,18 @@ void Simulator_Prepare(std::string method,double stepsize,int nsteps,int print,i
 		}
 		if (output) std::cout<<std::endl;
 	}
+	if (output) std::cout<<std::endl;
+}
+
+void Simulator_writeHeaders(int nmcs,std::string * mc_labels){
+	std::cout<<"*** Simulation started ***"<<std::endl;
+	std::cout<<" step,time(s)";
+	for (int imc=0;imc<nmcs;imc++)
+		std::cout<<",concentration of "<<mc_labels[imc];
+	for (int imc=0;imc<nmcs;imc++)
+		std::cout<<",rate of "<<mc_labels[imc];
+	std::cout<<std::endl;
+}
+
+void Simulator_Run(){
 }

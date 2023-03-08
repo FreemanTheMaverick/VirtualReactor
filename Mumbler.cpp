@@ -16,19 +16,9 @@ clock_t Mumbler_Welcome(){
 	return clock();
 }
 
-void Mumbler_writeHeaders(int nmcs,std::string * mc_labels){
-	std::cout<<"*** Simulation started ***"<<std::endl;
-	std::cout<<" step,time(s)";
-	for (int imc=0;imc<nmcs;imc++)
-		std::cout<<",concentration of "<<mc_labels[imc];
-	for (int imc=0;imc<nmcs;imc++)
-		std::cout<<",rate of "<<mc_labels[imc];
-	std::cout<<std::endl;
-}
-
 void Mumbler_Goodbye(clock_t start){
-	std::cout<<"*** Simulation terminated normally. Thanks for using. ***"<<std::endl;
-	std::cout<<"*** Elapsed time: "<<double(clock()-start)/CLOCKS_PER_SEC<<" s ***"<<std::endl;
+	std::cout<<"*** Simulation terminated normally in "<<double(clock()-start)/CLOCKS_PER_SEC<<" s. Thanks for using. ***"<<std::endl;
+	std::cout<<"*** If Virtual Reactor hopefully benefits your research or teaching, please cite this website https://github.com/FreemanTheMaverick/VirtualReactor and star it. (:D) ***"<<std::endl;
 }
 
 #ifndef NDEBUG
