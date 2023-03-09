@@ -13,7 +13,7 @@ nlohmann::json Parser_readFile(char * filename){
 	return json;
 }
 
-void Parser_getScalars(char * filename,std::string method,double & temperature,double & stepsize,int & nsteps,int & print,int & nmcs,int & ntss,int & nnbs,int & nthreads,bool output){
+void Parser_getScalars(char * filename,std::string method,double & temperature,double & stepsize,int & nsteps,int & print,int & nmcs,int & ntss,int & nnbs,bool output){
 	nlohmann::json json=Parser_readFile(filename);
 	method=json.at("method");
 	temperature=json.at("temperature");
@@ -23,7 +23,6 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 	nmcs=json.at("nmcs");
 	ntss=json.at("ntss");
 	nnbs=json.at("nnbs");
-	nthreads=json.at("nthreads");
 	if (output){
 		std::cout<<"*** Overall settings ***"<<std::endl;
 		std::cout<<"Method: "<<temperature<<std::endl;
@@ -34,7 +33,6 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 		std::cout<<"# of molecules and compleces: "<<nmcs<<std::endl;
 		std::cout<<"# of transition states: "<<ntss<<std::endl;
 		std::cout<<"# of non-barrier steps: "<<nnbs<<std::endl;
-		std::cout<<"# of parallelized threads: "<<nthreads<<std::endl;
 		std::cout<<std::endl;
 	}
 }
@@ -156,8 +154,7 @@ int main(int argc,char * argv[]){
 
 	std::string method;
 	double temperature,stepsize;
-	int nsteps,print,nmcs,ntss,nnbs,nthreads;
-	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
+	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,1);
 	
 	std::string mc_labels[nmcs];
 	double mc_gibbss[nmcs];

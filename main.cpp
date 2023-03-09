@@ -11,8 +11,8 @@ int main(int argc,char * argv[]){
 
 	std::string method;
 	double temperature,stepsize;
-	int nsteps,print,nmcs,ntss,nnbs,nthreads;
-	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,nthreads,1);
+	int nsteps,print,nmcs,ntss,nnbs;
+	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,1);
 	
 	std::string mc_labels[nmcs];
 	double mc_gibbss[nmcs];
@@ -42,7 +42,8 @@ int main(int argc,char * argv[]){
 		mc_nstss[imc]=mc_nsrtss[imc]+mc_nsptss[imc];
 
 	Simulator_writeHeaders(nmcs,mc_labels);
-	Simulator_runEuler(stepsize,nsteps,print,nmcs,ntss,mc_concentrations,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,mc_nstss,ts_frcs,ts_brcs,1);
+	if (method.compare("Eular"))
+		Simulator_runEuler(stepsize,nsteps,print,nmcs,ntss,mc_concentrations,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,mc_nstss,ts_frcs,ts_brcs,1);
 
 	Mumbler_Goodbye(start);
 	return 0;
