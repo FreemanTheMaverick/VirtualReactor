@@ -39,7 +39,7 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 	}
 }
 
-void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbss,double * mc_concentrations,std::string * ts_labels,double * ts_gibbss,double * ts_fbarriers,double * ts_frcs,double * ts_bbarriers,double * ts_brcs,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,std::string * nb_labels,int * nb_nsreactants,int * nb_reactants,int * nb_nsproducts,int * nb_products,bool output){
+void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbss,double * mc_concentrations,int * mc_nsrtss,int * mc_rtss, int * mc_nsptss,int * mc_ptss,std::string * ts_labels,double * ts_gibbss,double * ts_fbarriers,double * ts_frcs,double * ts_bbarriers,double * ts_brcs,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,std::string * nb_labels,int * nb_nsreactants,int * nb_reactants,int * nb_nsproducts,int * nb_products,bool output){
 	nlohmann::json json=Parser_readFile(filename);
 	double temperature=json.at("temperature");
 	int nmcs=json.at("nmcs");
@@ -67,6 +67,22 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 		}
 		ts_brcs[its]=kB*temperature/h*pow(R*temperature/P0,ts_nsproducts[its]-1)*exp(-ts_bbarriers[its]*kcal2J/R/temperature);
 	}
+	for (int imc=0;imc<nmcs;imc++){
+		mc_nsrtss[imc]=0;
+		mc_nsptss[imc]=0;
+		for (int jts=0;jts<ntss;jts++)
+			for (int kmc=0;kmc<ts_nsreactants[jts];kmc++)
+				if (imc==ts_reactants[jts*3+kmc]){
+					mc_rtss[imc*3+mc_nsrtss[imc]]=jts;
+					mc_nsrtss[imc]++;
+				}
+		for (int jts=0;jts<ntss;jts++)
+			for (int kmc=0;kmc<ts_nsproducts[jts];kmc++)
+				if (imc==ts_products[jts*3+kmc]){
+					mc_ptss[imc*3+mc_nsptss[imc]]=jts;
+					mc_nsptss[imc]++;
+				}
+	}
 	int nnbs=json.at("nnbs");
 	for (int inb=0;inb<nnbs;inb++){
 		nb_labels[inb]=json.at("nb_labels").at(inb);
@@ -84,6 +100,13 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 			std::cout<<" Label: "<<mc_labels[imc]<<std::endl;
 			std::cout<<" Gibbs free energy (kcal/mol): "<<mc_gibbss[imc]<<std::endl;
 			std::cout<<" Concentrations (mol/L): "<<mc_concentrations[imc]<<std::endl;
+			std::cout<<" Related TSs: as reactants:";
+			for (int jts=0;jts<mc_nsrtss[imc];jts++)
+				std::cout<<" TS"<<mc_rtss[imc*3+jts];
+			std::cout<<" ; as products:";
+			for (int jts=0;jts<mc_nsptss[imc];jts++)
+				std::cout<<" TS"<<mc_ptss[imc*3+jts];
+			std::cout<<std::endl;
 		}
 		std::cout<<std::endl;
 		std::cout<<"*** Transition states ***"<<std::endl;
@@ -139,6 +162,10 @@ int main(int argc,char * argv[]){
 	std::string mc_labels[nmcs];
 	double mc_gibbss[nmcs];
 	double mc_concentrations[nmcs];
+	int mc_nsrtss[nmcs];
+	int mc_rtss[nmcs*3];
+	int mc_nsptss[nmcs];
+	int mc_ptss[nmcs*3];
 	std::string ts_labels[ntss];
 	double ts_gibbss[ntss];
 	double ts_fbarriers[ntss];
@@ -154,7 +181,7 @@ int main(int argc,char * argv[]){
 	int nb_reactants[3*nnbs];
 	int nb_nsproducts[nnbs];
 	int nb_products[3*nnbs];
-	Parser_getVectors(argv[1],mc_labels,mc_gibbss,mc_concentrations,ts_labels,ts_gibbss,ts_fbarriers,ts_frcs,ts_bbarriers,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,nb_labels,nb_nsreactants,nb_reactants,nb_nsproducts,nb_products,1);
+	Parser_getVectors(argv[1],mc_labels,mc_gibbss,mc_concentrations,mc_nsrtss,mc_rtss,mc_nsptss,mc_ptss,ts_labels,ts_gibbss,ts_fbarriers,ts_frcs,ts_bbarriers,ts_brcs,ts_nsreactants,ts_reactants,ts_nsproducts,ts_products,nb_labels,nb_nsreactants,nb_reactants,nb_nsproducts,nb_products,1);
 
 	return 0;
 }

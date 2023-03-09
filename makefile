@@ -15,5 +15,8 @@ Mumbler: Mumbler.cpp
 Parser: Parser.cpp
 	$(CXX) Parser.cpp -I$(JSON) -c -Wall -O2 -DNDEBUG
 
+Parser_debug: Parser.cpp
+	$(CXX) Parser.cpp -I$(JSON) -Wall -O2
+
 Simulator: Simulator.cpp
 	$(CXX) Simulator.cpp -fopenmp -c -Wall -O2 -DNDEBUG
