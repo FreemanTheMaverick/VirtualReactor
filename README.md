@@ -5,7 +5,7 @@
 ## Installation
 
 + [Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/) uses [nlohmann/json](https://github.com/nlohmann/json) as the input file parser, so [nlohmann/json](https://github.com/nlohmann/json) must be installed.
-+ Download and compile [Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/)
++ Download and compile [Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/).
 ```
 git clone 
 cd VirtualReactor
