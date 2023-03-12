@@ -11,7 +11,8 @@ int main(int argc,char * argv[]){
 
 	std::string method;
 	double temperature,stepsize;
-	int nsteps,print,nmcs,ntss,nnbs;
+	long int nsteps,print;
+	int nmcs,ntss,nnbs;
 	Parser_getScalars(argv[1],method,temperature,stepsize,nsteps,print,nmcs,ntss,nnbs,1);
 	
 	std::string mc_labels[nmcs];

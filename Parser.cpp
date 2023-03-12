@@ -8,14 +8,14 @@
 
 nlohmann::json Parser_readFile(char * filename){
 	std::ifstream file(filename);
-	nlohmann::json json;
-	file>>json;
+	nlohmann::json json=nlohmann::json::parse(file);
+	file.close();
 	return json;
 }
 
-void Parser_getScalars(char * filename,std::string method,double & temperature,double & stepsize,int & nsteps,int & print,int & nmcs,int & ntss,int & nnbs,bool output){
+void Parser_getScalars(char * filename,std::string method,double & temperature,double & stepsize,long int & nsteps,long int & print,int & nmcs,int & ntss,int & nnbs,bool output){
 	nlohmann::json json=Parser_readFile(filename);
-	method=json.at("method");
+	method=json.at("method").get<std::string>();
 	temperature=json.at("temperature");
 	stepsize=json.at("stepsize");
 	nsteps=json.at("nsteps");
@@ -25,7 +25,7 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 	nnbs=json.at("nnbs");
 	if (output){
 		std::cout<<"*** Overall settings ***"<<std::endl;
-		std::cout<<"Method: "<<temperature<<std::endl;
+		std::cout<<"Method: "<<method<<std::endl;
 		std::cout<<"Temperature (K): "<<temperature<<std::endl;
 		std::cout<<"Step size (s): "<<stepsize<<std::endl;
 		std::cout<<"# of steps: "<<nsteps<<std::endl;

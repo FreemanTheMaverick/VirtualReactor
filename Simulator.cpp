@@ -14,8 +14,8 @@ void Simulator_writeHeaders(int nmcs,std::string * mc_labels){
 	std::cout<<std::endl;
 }
 
-void Simulator_runEuler(double stepsize,int nsteps,int print,int nmcs,int ntss,double * mc_concentrations,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,int * mc_nstss,double * ts_frcs,double * ts_brcs,bool output){
-	for (int istep=0;istep<nsteps;istep++){
+void Simulator_runEuler(double stepsize,long int nsteps,long int print,int nmcs,int ntss,double * mc_concentrations,int * ts_nsreactants,int * ts_reactants,int * ts_nsproducts,int * ts_products,int * mc_nstss,double * ts_frcs,double * ts_brcs,bool output){
+	for (long int istep=0;istep<nsteps;istep++){
 		double mc_rates[nmcs]={0};
 		for (int its=0;its<ntss;its++){
 			int nreactants=ts_nsreactants[its];
