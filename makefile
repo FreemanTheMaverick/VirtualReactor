@@ -4,7 +4,7 @@ JSON=/path/to/nlohmann/include
 .PHONY: all
 
 all: main Mumbler Parser Simulator
-	$(CXX) main.o Mumbler.o Parser.o Simulator.o -I$(JSON) -fopenmp -o VirtualSimulator -Wall -O2
+	$(CXX) main.o Mumbler.o Parser.o Simulator.o -I$(JSON) -fopenmp -o VirtualReactor -Wall -O2
 
 main: main.cpp
 	$(CXX) main.cpp -c -Wall -O2
