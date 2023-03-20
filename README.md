@@ -33,8 +33,12 @@ $k=\frac{k_B T}{h}(\frac{RT}{P})^{n-1}e^{-\frac{\Delta G^\ddagger}{RT}}$
 
 where $k$ is a one-direction (either forward or backward) elementary step rate constant, $k_B$ is the Boltzmann constant, $T$ is the temperature, $h$ is the Plank constant, $R$ is the ideal gas constant, $P$ is the pressure, $n$ is the molecularity of reactants and $\Delta G^\ddagger$ is the Gibbs free energy of activation.
 
-The rate of change in the concentration of a chemical species, $i$, in an elementary step, $p$ is written as
+The rate of change in the concentration of a chemical species, $i$, in an elementary step, $p$, is written as
 
 $r_{ip}=m_{ip}[-k_{+,p}\displaystyle\prod_{j\in R_p}c_j^{m_{jp}}+k_{-,p}\displaystyle\prod_{j\in P_p}c_j^{m_{jp}}]$
 
-For a chemical species in a reaction, it
+where $m_{ip}$ is the molecularity of species $i$ in step $p$, $k_{\pm,p}$ is the rate constant of the forward/backward reaction of step $p$, $R_p/P_p$ is the set of reactants/products involved in step $p$ and $c_j$ is the instant concentration of species $j$. The total rate of change in the concentrattion of $i$ is thus
+
+$r_p=\displaystyle\sum_{p\in S}r_{ip}$
+
+where $S$ is the set of elementary steps.
