@@ -47,4 +47,4 @@ where $S$ is the set of elementary steps.
 
 $c_i(t+\Delta t)=c_i(t)+\displaystyle\frac{\mathrm{d} c_i}{\mathrm{d} t}\Delta t$
 
-where \Delta t is the user-defined time step for simulation.
+where $\Delta$ t is the user-defined time step for simulation.
