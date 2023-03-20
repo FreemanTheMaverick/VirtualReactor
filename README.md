@@ -39,6 +39,6 @@ $r_{ip}=m_{ip}[-k_{+,p}\displaystyle\prod_{j\in R_p}c_j^{m_{jp}}+k_{-,p}\display
 
 where $m_{ip}$ is the molecularity of species $i$ in step $p$, $k_{\pm,p}$ is the rate constant of the forward/backward reaction of step $p$, $R_p/P_p$ is the set of reactants/products involved in step $p$ and $c_j$ is the instant concentration of species $j$. The total rate of change in the concentrattion of $i$ is thus
 
-$r_p=\displaystyle\sum_{p\in S}r_{ip}$
+$\frac{\partial c_i}{\partial t}=r_i=\displaystyle\sum_{p\in S}r_{ip}$
 
 where $S$ is the set of elementary steps.
