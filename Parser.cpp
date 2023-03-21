@@ -8,7 +8,7 @@
 
 nlohmann::json Parser_readFile(char * filename){
 	std::ifstream file(filename);
-	nlohmann::json json=nlohmann::json::parse(file,ignore_comments=1);
+	nlohmann::json json=nlohmann::json::parse(file);
 	file.close();
 	return json;
 }
