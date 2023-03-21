@@ -37,7 +37,7 @@ The rate of change in the concentration of a chemical species, $i$, in an elemen
 
 $r_{ip}=\pm m_{ip}[-k_{+,p}\displaystyle\prod_{j\in R_p}c_j^{m_{jp}}+k_{-,p}\displaystyle\prod_{j\in P_p}c_j^{m_{jp}}]$
 
-where $m_{ip}$ is the molecularity of species $i$ in step $p$, $k_{\pm,p}$ is the rate constant of the forward/backward reaction of step $p$, $R_p/P_p$ is the set of reactants/products involved in step $p$ and $c_j$ is the instant concentration of species $j$. The $\pm$ sign depends on whether $i$ is a reactant or a product of $p$. The total rate of change in the concentrattion of $i$ is thus
+where $m_{ip}$ is the molecularity of species $i$ in step $p$, $k_{\pm,p}$ is the rate constant of the forward/backward reaction of step $p$, $R_p/P_p$ is the set of reactants/products involved in step $p$ and $c_j$ is the instant concentration of species $j$. The $\pm$ sign depends on whether $i$ is a reactant or a product of $p$. The total rate of change in the concentration of $i$ is thus
 
 $\displaystyle\frac{\mathrm{d} c_i}{\mathrm{d} t}=r_i=\displaystyle\sum_{p\in S}r_{ip}$
 
@@ -47,4 +47,4 @@ where $S$ is the set of elementary steps.
 
 $c_i(t+\Delta t)=c_i(t)+\displaystyle\frac{\mathrm{d} c_i}{\mathrm{d} t}\Delta t$
 
-where $\Delta$ t is the user-defined time step for simulation.
+where $\Delta t$ is the user-defined time step for simulation.
