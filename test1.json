@@ -1,24 +1,24 @@
 {
- "method" : "Euler",
- "temperature" : 298.15,
- "stepsize" : 1e-4,
- "nsteps" : 10000000,
- "print" : 1000,
- "nmcs" : 5,
- "mc_labels" : [ "S", "B2", "B4", "A2", "A4" ],
- "mc_gibbss" : [ 0, -18, -36, -16, -32 ],
- "mc_concentrations" : [ 1000, 0, 0, 0, 0 ],
- "ntss" : 4,
- "ts_labels" : [ "B1", "B3", "A1", "A3" ],
- "ts_gibbss" : [ 15, 1, 17, 2 ],
- "ts_nsreactants" : [ 1, 1, 1, 1  ],
- "ts_reactants" : [ [ 0 ], [ 1 ], [ 0 ], [ 3 ] ],
- "ts_nsproducts" : [ 1, 1, 1, 1 ],
- "ts_products" : [ [ 1 ], [ 2 ], [ 3 ], [ 4 ] ],
- "nnbs" : 0,
- "nb_labels" : [ ],
- "nb_nsreactants" : [ ],
- "nb_reactants" : [ ],
- "nb_nsproducts" : [ ],
- "nb_products" : [ ]
+ "method" : "Euler", // Method for updating concentrations. For now only Euler method is available.
+ "temperature" : 298.15, // Temperature in K.
+ "stepsize" : 1e-4, // Step size in s.
+ "nsteps" : 10000000, // Number of steps.
+ "print" : 1000, // Printing a snapshot every 1000 steps.
+ "nmcs" : 5, // Number of molecules and compleces.
+ "mc_labels" : [ "S", "B2", "B4", "A2", "A4" ], // Their labels.
+ "mc_gibbss" : [ 0, -18, -36, -16, -32 ], // Their Gibbs free energies in kcal/mol.
+ "mc_concentrations" : [ 1000, 0, 0, 0, 0 ], // Their initial concentrations.
+ "ntss" : 4, // Number of transition states.
+ "ts_labels" : [ "B1", "B3", "A1", "A3" ], // Their labels.
+ "ts_gibbss" : [ 15, 1, 17, 2 ], // Their Gibbs free energies in kcal/mol.
+ "ts_nsreactants" : [ 1, 1, 1, 1  ], // Numbers of reactants of each transition state.
+ "ts_reactants" : [ [ 0 ], [ 1 ], [ 0 ], [ 3 ] ], // Indeces of reactants of each transition state. Can be more than one molecules/compleces.
+ "ts_nsproducts" : [ 1, 1, 1, 1 ], // Numbers of products of each transition state.
+ "ts_products" : [ [ 1 ], [ 2 ], [ 3 ], [ 4 ] ], // Indeces of products of each transition state. Can be more than one molecules/compleces.
+ "nnbs" : 0, // Not available yet. Can be omitted.
+ "nb_labels" : [ ], // Not available yet. Can be omitted.
+ "nb_nsreactants" : [ ], // Not available yet. Can be omitted.
+ "nb_reactants" : [ ], // Not available yet. Can be omitted.
+ "nb_nsproducts" : [ ], // Not available yet. Can be omitted.
+ "nb_products" : [ ] // Not available yet. Can be omitted.
 }
