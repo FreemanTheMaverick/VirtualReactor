@@ -43,7 +43,7 @@ $\displaystyle\frac{\mathrm{d} c_i}{\mathrm{d} t}=r_i=\displaystyle\sum_{p\in S}
 
 where $S$ is the set of elementary steps.
 
-[Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/) computes all rates of change in concentrations given the information of species and transition states of a reaction system at a moment and update the concentrations for the next moment with Eular method:
+[Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/) computes all rates of change in concentrations given the information of species and transition states of a reaction system at a moment and update the concentrations for the next moment with Euler method:
 
 $c_i(t+\Delta t)=c_i(t)+\displaystyle\frac{\mathrm{d} c_i}{\mathrm{d} t}\Delta t$
 
