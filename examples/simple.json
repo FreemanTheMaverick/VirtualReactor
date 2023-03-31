@@ -1,0 +1,24 @@
+{
+ "method" : "Euler", // Method for updating concentrations. For now only Euler method is available.
+ "temperature" : 298.15, // Temperature in K.
+ "stepsize" : 1, // Step size in s.
+ "nsteps" : 2e2, // Number of steps.
+ "print" : 1, // Printing a snapshot every 1000 steps.
+ "nmcs" : 2, // Number of molecules and compleces.
+ "mc_labels" : [ "R", "P" ], // Their labels.
+ "mc_gibbss" : [ 0, -10 ], // Their Gibbs free energies in kcal/mol.
+ "mc_concentrations" : [ 1000, 0 ], // Their initial concentrations.
+ "ntss" : 1, // Number of transition states.
+ "ts_labels" : [ "TS" ], // Their labels.
+ "ts_gibbss" : [ 20 ], // Their Gibbs free energies in kcal/mol.
+ "ts_nsreactants" : [ 1 ], // Numbers of reactants of each transition state.
+ "ts_reactants" : [ [ 0 ] ], // Indeces of reactants of each transition state. Can be more than one molecules/compleces.
+ "ts_nsproducts" : [ 1 ], // Numbers of products of each transition state.
+ "ts_products" : [ [ 1 ] ], // Indeces of products of each transition state. Can be more than one molecules/compleces.
+ "nnbs" : 0, // Not available yet. Can be omitted.
+ "nb_labels" : [ ], // Not available yet. Can be omitted.
+ "nb_nsreactants" : [ ], // Not available yet. Can be omitted.
+ "nb_reactants" : [ ], // Not available yet. Can be omitted.
+ "nb_nsproducts" : [ ], // Not available yet. Can be omitted.
+ "nb_products" : [ ] // Not available yet. Can be omitted.
+}
