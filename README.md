@@ -23,8 +23,21 @@ source ~/.bashrc
 
 ## Usage
 ```
-vr test1.json
+vr input.json > output.txt
 ```
+
+## Version history
+
+### v1.1
+1. Concentrations and rates of one step are consistent now. In v1.0, the rates were actually of last step.
+2. The zeroth step is now the initial state of a reaction. In v1.0, the zeroth step was actually the moment right after the initial state.
+3. ```ignore_comments``` toggled to ```true``` in ```nlohmann/json```'s ```parse``` function, so comments with ```//``` and ```/* */``` in input file to Virtual Reactor are permitted. In v1.0, any comment in input file caused errors.
+4. The two examples are replaced by new ones in ```/example```.
+5. Source codes are moved to ```/src```.
+None of the changes above causes non-negligible differences between results given by v1.0 and v1.1.
+
+### v1.0
+Initial version.
 
 ## Theory
 [Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/) simulates concentration evolution in chemical reactions based on [Eyring equation](https://en.wikipedia.org/wiki/Eyring_equation), an equation depicting reaction rates for elementary steps:
