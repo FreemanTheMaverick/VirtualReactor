@@ -7,7 +7,7 @@
  "nmcs" : 2, // Number of molecules and compleces.
  "mc_labels" : [ "R", "P" ], // Their labels.
  "mc_gibbss" : [ 0, -10 ], // Their Gibbs free energies in kcal/mol.
- "mc_concentrations" : [ 1000, 0 ], // Their initial concentrations.
+ "mc_concentrations" : [ 1000, 0 ], // Their initial concentrations in mol/m^3.
  "ntss" : 1, // Number of transition states.
  "ts_labels" : [ "TS" ], // Their labels.
  "ts_gibbss" : [ 20 ], // Their Gibbs free energies in kcal/mol.
