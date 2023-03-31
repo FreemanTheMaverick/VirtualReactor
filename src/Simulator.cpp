@@ -6,7 +6,7 @@
 
 void Simulator_writeHeaders(int nmcs,std::string * mc_labels){
 	std::cout<<"*** Simulation started ***"<<std::endl;
-	std::cout<<" step,time(s)";
+	std::cout<<"step,time(s)";
 	for (int imc=0;imc<nmcs;imc++)
 		std::cout<<",concentration of "<<mc_labels[imc];
 	for (int imc=0;imc<nmcs;imc++)
@@ -30,10 +30,7 @@ void Simulator_runEuler(double stepsize,long int nsteps,long int print,int nmcs,
 				mc_rates[ts_reactants[its*3+jmc]]+=-frate+brate;
 			for (int jmc=0;jmc<nproducts;jmc++)
 				mc_rates[ts_products[its*3+jmc]]+=frate-brate;
-//if (its==2 && istep%print==0) std::cout<<mc_rates[3]<<std::endl;
 		}
-		for (int imc=0;imc<nmcs;imc++)
-			mc_concentrations[imc]+=mc_rates[imc]*stepsize;
 		if (output && istep%print==0){
 			std::cout<<istep<<","<<istep*stepsize;
 			for (int imc=0;imc<nmcs;imc++)
@@ -42,6 +39,8 @@ void Simulator_runEuler(double stepsize,long int nsteps,long int print,int nmcs,
 				std::cout<<","<<mc_rates[imc];
 			std::cout<<std::endl;
 		}
+		for (int imc=0;imc<nmcs;imc++)
+			mc_concentrations[imc]+=mc_rates[imc]*stepsize;
 	}
 	if (output) std::cout<<std::endl;
 }

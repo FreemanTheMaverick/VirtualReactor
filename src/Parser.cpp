@@ -22,7 +22,7 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 	print=json.at("print");
 	nmcs=json.at("nmcs");
 	ntss=json.at("ntss");
-	nnbs=json.at("nnbs");
+	//nnbs=json.at("nnbs");
 	if (output){
 		std::cout<<"*** Overall settings ***"<<std::endl;
 		std::cout<<"Method: "<<method<<std::endl;
@@ -32,7 +32,7 @@ void Parser_getScalars(char * filename,std::string method,double & temperature,d
 		std::cout<<"Frequency of printing: "<<print<<std::endl;
 		std::cout<<"# of molecules and compleces: "<<nmcs<<std::endl;
 		std::cout<<"# of transition states: "<<ntss<<std::endl;
-		std::cout<<"# of non-barrier steps: "<<nnbs<<std::endl;
+		//std::cout<<"# of non-barrier steps: "<<nnbs<<std::endl;
 		std::cout<<std::endl;
 	}
 }
@@ -81,6 +81,7 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 					mc_nsptss[imc]++;
 				}
 	}
+	/*
 	int nnbs=json.at("nnbs");
 	for (int inb=0;inb<nnbs;inb++){
 		nb_labels[inb]=json.at("nb_labels").at(inb);
@@ -91,6 +92,7 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 		for (int iproduct=0;iproduct<nb_nsproducts[inb];iproduct++)
 			nb_products[inb*3+iproduct]=json.at("nb_products").at(inb).at(iproduct);
 	}
+	*/
 	if (output){
 		std::cout<<"*** Molecules and compleces ***"<<std::endl;
 		for (int imc=0;imc<nmcs;imc++){
@@ -131,6 +133,7 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 			std::cout<<" Backward reaction rate constant (SI): "<<ts_brcs[its]<<std::endl;
 		}
 		std::cout<<std::endl;
+		/*
 		std::cout<<"*** Non-barrier steps ***"<<std::endl;
 		for (int inb=0;inb<nnbs;inb++){
 			std::cout<<"NB "<<inb<<":"<<std::endl;
@@ -145,6 +148,7 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 			std::cout<<std::endl;
 		}
 		std::cout<<std::endl;
+		*/
 	}
 }
 

@@ -4,21 +4,17 @@ JSON=/home/yzhangnn/nlohmann/include/
 .PHONY: all
 
 all: main Mumbler Parser Simulator
-	cd src
-	$(CXX) main.o Mumbler.o Parser.o Simulator.o -I$(JSON) -fopenmp -o ../VirtualReactor -Wall -O2
+	$(CXX) src/main.o src/Mumbler.o src/Parser.o src/Simulator.o -I$(JSON) -fopenmp -o VirtualReactor -Wall -O2
+	rm src/*.o
 
-main: main.cpp
-	cd src
-	$(CXX) main.cpp -c -Wall -O2
+main: src/main.cpp
+	$(CXX) src/main.cpp -c -o src/main.o -Wall -O2
 
-Mumbler: Mumbler.cpp
-	cd src
-	$(CXX) Mumbler.cpp -c -Wall -O2 -DNDEBUG
+Mumbler: src/Mumbler.cpp
+	$(CXX) src/Mumbler.cpp -c -o src/Mumbler.o -Wall -O2 -DNDEBUG
 
-Parser: Parser.cpp
-	cd src
-	$(CXX) Parser.cpp -I$(JSON) -c -Wall -O2 -DNDEBUG
+Parser: src/Parser.cpp
+	$(CXX) src/Parser.cpp -I$(JSON) -c -o src/Parser.o -Wall -O2 -DNDEBUG
 
-Simulator: Simulator.cpp
-	cd src
-	$(CXX) Simulator.cpp -fopenmp -c -Wall -O2 -DNDEBUG
+Simulator: src/Simulator.cpp
+	$(CXX) src/Simulator.cpp -fopenmp -c -o src/Simulator.o -Wall -O2 -DNDEBUG
