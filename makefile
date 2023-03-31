@@ -1,5 +1,5 @@
 CXX=g++
-JSON=/home/yzhangnn/nlohmann/include/
+JSON=/path/to/nlohmann/include/
 
 .PHONY: all
 
