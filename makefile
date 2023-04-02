@@ -17,4 +17,4 @@ Parser: src/Parser.cpp
 	$(CXX) src/Parser.cpp -I$(JSON) -c -o src/Parser.o -Wall -O2 -DNDEBUG
 
 Simulator: src/Simulator.cpp
-	$(CXX) src/Simulator.cpp -fopenmp -c -o src/Simulator.o -Wall -O2 -DNDEBUG
+	$(CXX) src/Simulator.cpp -c -o src/Simulator.o -Wall -O2 -DNDEBUG
