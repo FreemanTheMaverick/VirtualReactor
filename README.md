@@ -42,9 +42,13 @@ Initial version.
 ## Theory
 [Virtual Reactor](https://github.com/FreemanTheMaverick/VirtualReactor/) simulates concentration evolution in chemical reactions based on [Eyring equation](https://en.wikipedia.org/wiki/Eyring_equation), an equation depicting reaction rates for elementary steps:
 
-$k=\displaystyle\frac{k_\mathrm{B} T}{h}(\displaystyle\frac{RT}{P})^{n-1}e^{-\frac{\Delta G^\ddagger}{RT}}$
+$k=\displaystyle\frac{k_\mathrm{B} T}{h}\left(\displaystyle\frac{1}{c^⦵}\right)^{n-1}e^{-\frac{\Delta G^\ddagger}{RT}}$
 
-where $k$ is a one-direction (either forward or backward) elementary step rate constant, $k_\mathrm{B}$ is the Boltzmann constant, $T$ is the temperature, $h$ is the Plank constant, $R$ is the ideal gas constant, $P$ is the pressure, $n$ is the molecularity of reactants and $\Delta G^\ddagger$ is the Gibbs free energy of activation.
+or
+
+$k=\displaystyle\frac{k_\mathrm{B} T}{h}(P^⦵)^{n-1}e^{-\frac{\Delta G^\ddagger}{RT}}$
+
+where $k$ is a one-direction (either forward or backward) elementary step rate constant, $k_\mathrm{B}$ is the Boltzmann constant, $T$ is the temperature, $h$ is the Plank constant, $R$ is the ideal gas constant, $c^⦵$ and $P^⦵$ are the standard state concentration and pressure respectively, $n$ is the molecularity of reactants and $\Delta G^\ddagger$ is the Gibbs free energy of activation.
 
 The rate of change in the concentration of a chemical species, $i$, in an elementary step, $p$, is written as
 
