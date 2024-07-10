@@ -56,14 +56,15 @@ void Parser_getVectors(char * filename,std::string * mc_labels,double * mc_gibbs
 			ts_reactants[its*3+ireactant]=json.at("ts_reactants").at(its).at(ireactant);
 			ts_fbarriers[its]-=mc_gibbss[ts_reactants[its*3+ireactant]];
 		}
-		ts_frcs[its]=kB*temperature/h*pow(R*temperature/P0,ts_nsreactants[its]-1)*exp(-ts_fbarriers[its]*kcal2J/R/temperature);
+		ts_frcs[its]=kB*temperature/h*exp(-ts_fbarriers[its]*kcal2J/R/temperature);
+		//ts_frcs[its]=kB*temperature/h*pow(R*temperature/P0,ts_nsreactants[its]-1)*exp(-ts_fbarriers[its]*kcal2J/R/temperature);
 		ts_nsproducts[its]=json.at("ts_nsproducts").at(its);
 		ts_bbarriers[its]=ts_gibbss[its];
 		for (int iproduct=0;iproduct<ts_nsproducts[its];iproduct++){
 			ts_products[its*3+iproduct]=json.at("ts_products").at(its).at(iproduct);
 			ts_bbarriers[its]-=mc_gibbss[ts_products[its*3+iproduct]];
 		}
-		ts_brcs[its]=kB*temperature/h*pow(R*temperature/P0,ts_nsproducts[its]-1)*exp(-ts_bbarriers[its]*kcal2J/R/temperature);
+		ts_brcs[its]=kB*temperature/h*exp(-ts_bbarriers[its]*kcal2J/R/temperature);
 	}
 	for (int imc=0;imc<nmcs;imc++){
 		mc_nsrtss[imc]=0;
